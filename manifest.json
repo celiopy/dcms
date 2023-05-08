@@ -1,0 +1,72 @@
+{
+  "short_name": "IRRO3D",
+  "name": "IRRO3D",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "purpose": "maskable any",
+      "sizes": "any"
+    }
+  ],
+  "start_url": "/index.php?source=pwa",
+  "background_color": "#3367D6",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#3367D6",
+  "shortcuts": [
+    {
+      "name": "Acessar Agenda",
+      "short_name": "Agenda",
+      "description": "Acesse a Agenda",
+      "url": "/agenda?source=pwa", 
+      "icons": [
+        {
+          "src": "favicon.svg",
+          "purpose": "maskable any",
+          "sizes": "any"
+        }
+      ]
+    }, 
+    {
+      "name": "Acessar Pacientes",
+      "short_name": "Pacientes",
+      "description": "Veja a lista de pacientes",
+      "url": "/patients?source=pwa", 
+      "icons": [
+        {
+          "src": "favicon.svg",
+          "purpose": "maskable any",
+          "sizes": "any"
+        }
+      ]
+    }
+  ],
+  "description": "Sistema de gerenciamento da Clínica",
+  "screenshots": [
+    {
+      "src": "/assets/img/Screenshot_1.jpg",
+      "type": "image/png",
+      "sizes": "720x1560"
+    },
+    {
+      "src": "/assets/img/Screenshot_2.jpg",
+      "type": "image/png",
+      "sizes": "720x1560"
+    },
+    {
+      "src": "/assets/img/Screenshot_3.jpg",
+      "type": "image/png",
+      "sizes": "720x1560"
+    },
+    {
+      "src": "/assets/img/Screenshot_4.jpg",
+      "type": "image/png",
+      "sizes": "720x1560"
+    },
+    {
+      "src": "/assets/img/Screenshot_5.jpg",
+      "type": "image/png",
+      "sizes": "720x1560"
+    }
+  ]
+}

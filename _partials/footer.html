@@ -1,0 +1,118 @@
+    <div class="modal">
+        <div class="modal-dialog">
+            <div class="flex items-center">
+                <div class="modal-title">Default title</div>
+                <a href class="close mi mi-close" style="margin-inline-start: auto;"></a>
+            </div>
+            <div class="modal-content"></div>
+        </div>
+    </div>
+    <script>
+// Get the toggle button and aside element
+const toggleButton = document.querySelector('.toggle-button');
+const asideOverlay = document.querySelector('.overlay');
+const asideElement = document.querySelector('.aside');
+
+// Check if there is a "asideState" value in localStorage
+const asideState = localStorage.getItem('asideState');
+if (asideState === 'open') {
+  // If the localStorage value is "open", add the "open" class to the aside element
+  asideElement.classList.add('open');
+}
+
+let startX; // To store the starting X position of the touch event
+let threshold = 50; // The minimum distance the user needs to swipe to trigger the menu
+
+const openAside = () => {
+    asideElement.style.width = '250px';
+    asideElement.classList.add('open');
+
+    // Save the state in localStorage
+    localStorage.setItem('asideState', 'open');
+};
+
+const closeAside = () => {
+    asideElement.style.width = '66px';
+    asideElement.classList.remove('open');
+
+    // Save the state in localStorage
+    localStorage.setItem('asideState', 'closed');
+};
+
+const asideToggle = () => {
+    // Toggle the "open" class on the aside element
+    asideElement.classList.toggle('open');
+    
+    // Save the state in localStorage
+    const state = asideElement.classList.contains('open') ? 'open' : 'closed';
+    localStorage.setItem('asideState', state);
+
+    asideElement.removeAttribute('style');
+};
+
+const handleTouchStart = (event) => {
+  startX = event.touches[0].clientX;
+};
+
+const handleTouchMove = (event) => {
+  const currentX = event.touches[0].clientX;
+  const distance = currentX - startX;
+  let newWidth = parseFloat(getComputedStyle(asideElement).width) + distance;
+
+  newWidth = Math.max(66, newWidth);
+  newWidth = Math.min(250, newWidth);
+
+  asideElement.style.width = `${newWidth}px`;
+};
+
+const handleTouchEnd = (event) => {
+  const distance = event.changedTouches[0].clientX - startX;
+  const isAsideOpen = asideElement.classList.contains('open');
+
+  if (isAsideOpen && distance < -threshold) {
+    console.log(distance);
+    closeAside(); // Swipe left, hide the menu
+  } else if (!isAsideOpen && distance > threshold) {
+    console.log(distance);
+    openAside(); // Swipe right, show the menu
+  }
+
+  startX = 0; // Reset the startX value
+};
+
+const elements = [toggleButton];
+
+attachEvents('click', elements, asideToggle);
+asideOverlay.addEventListener('click', closeAside);
+asideElement.addEventListener('touchstart', handleTouchStart);
+asideElement.addEventListener('touchmove', handleTouchMove);
+window.addEventListener('touchend', handleTouchEnd);
+
+function attachEvents(event, elements, fn) {
+  for (const element of elements) {
+    element.addEventListener(event, fn);
+    console.log('Attached ' + event);
+  }
+}
+
+        function matchSlugPattern(pathname) {
+            const regex = /^(\d{4})\/(\d{2})\/(\d{2})(?:\/([\w-]*))?\/?$/;
+
+            if (typeof pathname !== 'string') {
+                console.log('pathname is not a string');
+                return false;
+            }
+
+            // Exec regex in trimmed pathname
+            const match = regex.exec(pathname.replace(/^\/|\/$/g, ''));
+
+            if (! match) {
+                let url = today();
+                history.replaceState(null, '', url);
+
+                console.log('Url updated to correct pattern');
+            }
+        }
+    </script>
+</body>
+</html>

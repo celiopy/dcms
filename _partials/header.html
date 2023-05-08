@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title><?= $title; ?></title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="<?= BASEURL; ?>assets/css/main.css?d">
+</head>
+<body>
+    <?php
+        $uri = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
+    ?>
+    <div class="container">
+    <aside class="aside">
+        <div class="aside-content">
+            <a class="toggle-button toggle mi-menu"></a>
+            <ul class="navbar">
+                <li><a href="<?= BASEURL; ?>" <?= (! $uri[0] ? 'class="active"' : ''); ?>><i class="mi mi-widgets"></i>Dashboard</a></li>
+                <li><a href="<?= BASEURL; ?>agenda" <?= ($uri[0] === 'agenda' ? 'class="active"' : ''); ?>><i class="mi mi-today"></i>Agenda</a></li>
+                <li><a href="<?= BASEURL; ?>patients" <?= ($uri[0] === 'patients' ? 'class="active"' : ''); ?>><i class="mi mi-patient"></i>Pacientes</a></li>
+                <li><a href="<?= BASEURL; ?>doctors" <?= ($uri[0] === 'doctors' ? 'class="active"' : ''); ?>><i class="mi mi-doctor"></i>Doutores</a></li>
+                <li><a href="<?= BASEURL; ?>users" <?= ($uri[0] === 'users' ? 'class="active"' : ''); ?>><i class="mi mi-user"></i>Usuários</a></li>
+                <li><a href="<?= BASEURL; ?>finantials" <?= ($uri[0] === 'finantials' ? 'class="active"' : ''); ?>><i class="mi mi-atm"></i>Financeiro</a></li>
+            </ul>          
+            <ul class="navbar">
+                <li><a href="<?= BASEURL; ?>settings"><i class="mi mi-settings"></i>Configs.</a></li>
+                <li><a href="mailto:support@ashelabs.dev"><i class="mi mi-support"></i>Suporte</a></li>
+                <li><a href="https://www.anydesk.com/download" target="_blank"><i class="mi mi-cloud-download"></i>Baixar Anydesk</a></li>
+            </ul>
+            <div class="help">
+                <div>DCMS by ASHE<strong>LABS</strong>
+                </div>
+            </div>
+        </div>
+    </aside>
+    <div class="overlay"></div>
+    <style>
+        .user-pic {
+            display: inline-flex;
+            width: 36px;
+            height: 36px;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--clr-surface);
+            color: var(--clr-primary);
+            border: 1px solid;
+            border-radius: 100%;
+        }
+
+        .dropdown {
+            z-index: 997;
+            position: absolute;
+            top: 100%;
+            margin-block-start: .5rem;
+            right: 0;
+            min-width: 200px;
+            background: var(--clr-surface);
+
+            overflow: hidden;
+            height: 0; opacity: 0;
+
+            transition: 200ms ease;
+        }
+
+        .dropdown.open {
+            opacity: 1;
+            height: auto;
+        }
+
+            .dropdown li {
+                padding: .5rem;
+            }
+
+            .dropdown li a {
+                display: block;
+                padding-inline: 1rem;
+                line-height: 2rem;
+            }
+
+            .dropdown li a:hover {
+                background-color: var(--clr-depth);
+            }
+
+        .dropdown-btn {
+            padding-inline: .25rem;
+            padding-block: .25rem;
+            cursor: pointer;
+            font-size: var(--fs-300);
+
+            user-select: none;
+            transition: 200ms ease;
+        }
+
+        .dropdown-btn:hover {
+            background-color: var(--clr-surface);
+        }
+
+        .menu a {
+            display: block;
+            transition: 200ms ease;
+            color: inherit;
+        }
+
+        .menu a:hover {
+            background: hsl(0, 0%, 0%, 5%);
+        }
+
+        .menu a.alert {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            from {
+                color: inherit;
+            } to {
+                color: hsl(0, 100%, 50%);
+            }
+        }
+    </style>
+    <div class="bar | flex items-center gap-400">
+        <div></div>
+        <div class="flex items-center gap-400" style="margin-inline-start: auto;">
+            <ul class="menu | gap-200" style="display: flex; align-items: center;">
+                <li>
+                    <a href style="padding: .5rem; display: flex; align-items: center; font-size: 1.3rem;"><i class="mi mi-inbox"></i></a>
+                </li>
+                <li>
+                    <a href class="alert" style="padding: .5rem; display: flex; align-items: center; font-size: 1.3rem;"><i class="mi mi-warning"></i></a>
+                </li>
+            </ul>
+            <div href="" style="position: relative;">
+                <div class="dropdown-btn | flex items-center gap-200">
+                    <div style="line-height: 1.2; text-align: left;">
+                        <div style="font-size: .8em;">Boa tarde, </div>
+                        <div class="fw-bold">Celio P. Filho<i class="mi mi-star" style="font-size: .8rem;"></i></div>
+                    </div>
+                    <i class="user-pic mi mi-user" style="font-size: 1.5rem;"></i>
+                </div>
+                <ul class="dropdown">
+                    <li><a href="<?= BASEURL; ?>edit.php"><i class="mi mi-edit"></i>&nbsp; Editar</a></li>
+                    <li><a href="<?= BASEURL; ?>logout.php"><i class="mi mi-logout"></i>&nbsp; Sair</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        const dropdownBtn = document.querySelector('.dropdown-btn');
+        const dropdown = document.querySelector('.dropdown');
+        dropdownBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            dropdown.classList.toggle('open');
+        });
+    </script>

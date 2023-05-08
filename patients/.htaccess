@@ -1,0 +1,14 @@
+RewriteEngine On
+RewriteBase /patients/
+
+# where the magic is done !
+RewriteRule ^index\.php$ - [L]
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+
+RewriteRule ^(\d+)/view$ view.php?id=$1 [L,QSA]
+RewriteRule ^(\d+)/photos$ photos.php?id=$1 [L,QSA]
+RewriteRule ^(\d+)/history$ history.php?id=$1 [L,QSA]
+RewriteRule ^(\d+)/budgets$ budgets.php?id=$1 [L,QSA]
+RewriteRule ^(\d+)/payments$ payments.php?id=$1 [L,QSA]

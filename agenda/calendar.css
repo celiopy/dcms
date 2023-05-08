@@ -1,0 +1,155 @@
+.calendar {
+    background: white; padding: .5rem .25rem 0 .25rem;
+}
+
+.weekdays, .days {
+    display: flex;
+    flex-wrap: wrap;
+
+    text-align: center;
+}
+
+.weekdays {
+    color: #616161;
+    background-color: hsl(208, 100%, 43%, .2);
+
+    margin-block: 0.5rem;
+
+    border-radius: 1rem;
+}
+
+    :where(.weekdays, .days) > .day {
+        margin-inline: 0.125rem;
+        margin-block-end: 0.25rem;
+
+        flex: 0 0 calc((100% / 7) - 0.25rem);
+        aspect-ratio: 1 / 1; /* property not supported in all browsers, yet */
+
+        border-radius: 100%;
+        border: 1px solid transparent;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        color: inherit;
+        font-size: var(--fs-300);
+        font-weight: var(--fw-bold);
+
+        transition: 300ms ease;
+    }
+
+    .weekdays > .day {
+        font-size: var(--fs-200);
+        margin-block-end: 0;
+    }
+
+    .days > .day:hover {
+        background-color: var(--clr-depth);
+    }
+    
+    .days > .day.current {
+        background-color: var(--clr-depth);
+        border-color: var(--clr-blue);
+    }
+
+    .days > .day.today {
+        background-color: var(--clr-blue);
+        color: #ffffff;
+    }
+
+    .days > .prev-month.day, 
+    .days > .next-month.day, 
+    .days > .sunday.day {
+        opacity: 0.5;
+    }
+
+    .sexy-title {
+        font-size: var(--fs-300);
+        text-align: center;
+        flex-grow: 1;
+    }
+
+ul.doctors {
+    position: relative;
+}
+
+@media (min-width: 768px) {
+    ul.doctors::before {
+        display: none;
+    }
+}
+
+ul.doctors::before {
+    content: "Doutores";
+    font-weight: var(--fw-bold);
+}
+
+ul.doctors > li {
+    --accent: black;
+
+    margin-block: 0.125rem;
+}
+
+ul.doctors label {
+    padding-inline: 0.5rem;
+    display: flex;
+    align-items: center;
+
+    gap: 0.5rem;
+    border: solid transparent;
+    border-width: 1px 1px 1px 3px;
+    border-radius: 0.325rem;
+
+    height: 2.25rem;
+    line-height: 1;
+    cursor: pointer;
+
+    transition: 300ms ease;
+}
+
+ul.doctors :hover label {
+    background-color: var(--clr-depth);
+    border-color: var(--clr-secondary);
+}
+
+ul.doctors label::before {
+    content: "\e983";
+
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'mi' !important;
+    speak: never;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+ul.doctors input:checked + label {
+    border-color: var(--accent);
+    background-color: var(--clr-surface);
+    color: var(--accent);
+}
+
+ul.doctors input:checked + label::before {
+    content: "\e984";
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    display: block;
+    float: left;
+    margin-right: -2rem;
+    opacity: 0;
+    width: 1rem;
+    z-index: -1;
+}
